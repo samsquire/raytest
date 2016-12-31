@@ -1,0 +1,96 @@
+<html>
+
+<canvas id="canvas" width="1000" height="1000"></canvas>
+
+
+<script type="text/javascript">
+var activekey = null;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+
+ctx.fillStyle = "black";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+function Point(x, y) { var self = this; this.x = x; this.y = y; }
+var d2r = Math.PI/180;
+var r = 50;
+var m = canvas.width / 2;
+var player = new Point(m - r, 100);
+
+
+function pixel(x, y, r, g, b) {
+  var pixel = ((y * 4) * canvas.width) + (4 * x);
+  image.data[pixel] = r;
+  image.data[pixel + 1] = g;
+  image.data[pixel + 2] = b;
+  image.data[pixel + 3] = 255;
+}
+
+function fill(y, left, right, r, g, b) {
+ for (var i = left; i < right; i++) {
+  pixel(i, y, r, g, b);
+ }
+}
+
+
+setInterval(function () {
+var cheight = (r*2);
+
+
+var dy = 300;
+la = ra = Math.PI/2;
+var err = 0.5;
+var lasty = 0;
+var change = (Math.PI*2)/cheight;
+var left; var right;
+for (var y = 0; y < cheight; y++) { 
+ for (var n = lasty + 1; n <= y; n++) {
+   fill(dy + n, left, right, 255, 0, 0);
+ }
+ la += change;
+ ra -= change;
+ 
+ left = r * Math.cos(la);
+ right = r * Math.cos(ra);
+ left += 600;
+ right += 600;
+ left = Math.round(left);
+ right = Math.round(right);
+ var newy = Math.round(r * Math.sin(ra));
+ fill(dy + newy, left, right, 255, 0, 0);
+ lasty = newy;
+}
+
+for (var i = 1; i < 360; i++) {
+  var x = r * Math.cos(i * d2r);
+  var y = r * Math.sin(i * d2r);
+  x += r + player.x; y += r + player.y;
+  x = Math.round(Math.abs(x));
+  y = Math.round(Math.abs(y));
+  pixel(x, y, 255, 0, 255);
+}
+
+
+for (var x = 0; x < canvas.width; x++) {
+  for (var y = 0; y < canvas.height; y++) {
+  }
+}
+
+ctx.putImageData(image, 0, 0);
+
+}, 1000);
+
+document.addEventListener('keypress', function (e) {
+activekey = e.keyCode;
+});
+
+document.addEventListener('keyup', function (e) {
+activekey = null;
+});
+
+
+</script>
+
+</html>
