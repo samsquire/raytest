@@ -1,0 +1,6 @@
+---
+name: raytest
+backup:
+- .git
+- index.html 
+
