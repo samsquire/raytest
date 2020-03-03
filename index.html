@@ -234,7 +234,7 @@ dda_line(s, e);
 var satellite = satellite_p.rotate(new Point(r - 10, r - 10), Math.abs(360 - angle));
 satellite.x += player.x;
 satellite.y += player.y;
-circle(satellite.x, satellite.y, 10, 0, 0, 255);
+circle(satellite.x, satellite.y, 10, 0, 100, 60);
 dda_line(s, satellite.translate(10, 10));
 
 for (var x = 0; x < canvas.width; x++) {
@@ -251,16 +251,16 @@ draw_rectangle(view);
 var newx = null;
 var newy = null;
 
-if (activekey["ArrowLeft"]) {
+if (activekey["h"]) {
   newx =  grid_player.x - 1;
   newy =  grid_player.y;
-} else if (activekey["ArrowRight"]) {
+} else if (activekey["k"]) {
   newx =  grid_player.x + 1;
   newy =  grid_player.y;
-} else if (activekey["ArrowUp"]) {
+} else if (activekey["u"]) {
   newy =  grid_player.y - 1;
   newx =  grid_player.x;
-} else if (activekey["ArrowDown"]) {
+} else if (activekey["j"]) {
   newy =  grid_player.y + 1;
   newx =  grid_player.x;
 } else if (activekey["a"]) {
